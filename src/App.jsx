@@ -9,7 +9,7 @@ import SideBar from './components/Sidebar';
 
 
 function App() {
- const apiKey = import.meta.env.VITE_APIKEY;
+//  const apiKey = import.meta.env.VITE_APIKEY;
   // const [activeSection, setActiveSection] = useState("true");
 
   return (
