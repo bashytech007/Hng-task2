@@ -10,6 +10,7 @@ const Movies = () => {
 
   useEffect(() => {
   
+  const apiKey = import.meta.env.VITE_APIKEY;
     
     const apiUrl = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&page=1`;
 
@@ -41,11 +42,8 @@ const Movies = () => {
         <div>
           <h2 className="text-2xl pb-[50px] font-bold">Featured Movies</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-         
-          
-           
             {topRatedMovies.map((movie) => (
-              <Link to={`/movie/${movie.id}`}>
+              <Link to={`/movie/${movie.id}`} key={movie.id}>
                 <div key={movie.id}>
                   <div
                     className="bg-white p-4 rounded shadow h-[90vh]  object-contain"
@@ -86,10 +84,8 @@ const Movies = () => {
             ))}
           </div>
         </div>
-       
       )}
     </div>
-    
   );
 };
 
