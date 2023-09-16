@@ -9,7 +9,7 @@ import SideBar from './components/Sidebar';
 
 
 function App() {
-//  const apiKey = import.meta.env.VITE_APIKEY;
+ const apiKey = import.meta.env.VITE_APIKEY;
   // const [activeSection, setActiveSection] = useState("true");
 
   return (
@@ -17,7 +17,7 @@ function App() {
      <Route path ="/" element={<Home/>}/>
     <Route path ="/search" element={<Search/>}/>
     <Route path="/movie/:id" element={<MovieDetails/>}>
-      {/* <Route path='sidebar' element={<SideBar/>}/> */}
+     {/* <Route path='sidebar' element={<SideBar/>}/> */}
     </Route>
     </Routes>
   );
