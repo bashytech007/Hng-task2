@@ -9,30 +9,50 @@ const Movies = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-   const apiKey = import.meta.env.VITE_APIKEY;
+  // useEffect(() => {
+  //  const apiKey = import.meta.env.VITE_APIKEY;
   
   
     
-    const apiUrl = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&page=1`;
+  //   const apiUrl = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&page=1`;
 
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.results && Array.isArray(data.results)) {
-          const topRatedMoviesSlice = data.results.slice(0, 10);
-          setTopRatedMovies(topRatedMoviesSlice);
-          setLoading(false);
-        } else {
-          setError("Invalid API response format");
-          setLoading(false);
-        }
-      })
-      .catch((error) => {
-        setError(error);
+  //   fetch(apiUrl)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       if (data.results && Array.isArray(data.results)) {
+  //         const topRatedMoviesSlice = data.results.slice(0, 10);
+  //         setTopRatedMovies(topRatedMoviesSlice);
+  //         setLoading(false);
+  //       } else {
+  //         setError("Invalid API response format");
+  //         setLoading(false);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       setError(error);
+  //       setLoading(false);
+  //     });
+  // }, []);
+  const apiKey = import.meta.env.VITE_APIKEY;
+
+  const apiUrl = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&page=1`;
+
+  fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.results && Array.isArray(data.results)) {
+        const topRatedMoviesSlice = data.results.slice(0, 10);
+        setTopRatedMovies(topRatedMoviesSlice);
         setLoading(false);
-      });
-  }, []);
+      } else {
+        setError("Invalid API response format");
+        setLoading(false);
+      }
+    })
+    .catch((error) => {
+      setError(error);
+      setLoading(false);
+    });
 
   return (
     <div className="pt-[50px] px-[50px] ">
