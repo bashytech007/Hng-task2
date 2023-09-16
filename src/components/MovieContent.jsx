@@ -5,13 +5,15 @@ import loading from "../assets/svg/loading.gif";
 import ratedLogo from "../assets/svg/18.svg";
 import { Star1, Back, Slash } from "iconsax-react";
 
-export default function MovieContent({  setActiveSection }) {
+export default function MovieContent({ setActiveSection }) {
+   const apiKey = import.meta.env.VITE_APIKEY;
+ 
   const { id } = useParams();
   const [movieData, setMovieData] = useState({});
   const [lazyLoad, setLazyLoad] = useState(true);
    
   const [errorMsg, setErrorMsg] = useState("");
-  const apiKey = import.meta.env.VITE_APIKEY;
+  
  
 
   const URL = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`;

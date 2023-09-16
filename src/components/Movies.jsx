@@ -4,12 +4,13 @@ import Imbd from "../assets/svg/Imdb.svg";
 import { Link } from "react-router-dom";
 // import RightArr from '../assets/svg/right.svg'
 const Movies = () => {
-  const apiKey = import.meta.env.VITE_APIKEY;
+ 
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+   const apiKey = import.meta.env.VITE_APIKEY;
   
   
     
