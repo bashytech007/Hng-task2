@@ -1,61 +1,37 @@
+
 import React, { useEffect, useState } from "react";
 import Tomato from "../assets/svg/rottenTomato.svg";
 import Imbd from "../assets/svg/Imdb.svg";
 import { Link } from "react-router-dom";
-// import RightArr from '../assets/svg/right.svg'
+
 const Movies = () => {
- 
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // useEffect(() => {
-  //  const apiKey = import.meta.env.VITE_APIKEY;
-  
-  
-    
-  //   const apiUrl = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&page=1`;
+  useEffect(() => {
+    const apiKey = import.meta.env.VITE_APIKEY;
 
-  //   fetch(apiUrl)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       if (data.results && Array.isArray(data.results)) {
-  //         const topRatedMoviesSlice = data.results.slice(0, 10);
-  //         setTopRatedMovies(topRatedMoviesSlice);
-  //         setLoading(false);
-  //       } else {
-  //         setError("Invalid API response format");
-  //         setLoading(false);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       setError(error);
-  //       setLoading(false);
-  //     });
-  // }, []);
-  const apiKey = import.meta.env.VITE_APIKEY;
+    const apiUrl = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&page=1`;
 
-  const apiUrl = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&page=1`;
-
-  fetch(apiUrl)
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.results && Array.isArray(data.results)) {
-        const topRatedMoviesSlice = data.results.slice(0, 10);
-        setTopRatedMovies(topRatedMoviesSlice);
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.results && Array.isArray(data.results)) {
+          setTopRatedMovies(data.results.slice(0, 10));
+        } else {
+          setError("Invalid API response format");
+        }
         setLoading(false);
-      } else {
-        setError("Invalid API response format");
+      })
+      .catch((error) => {
+        setError(error);
         setLoading(false);
-      }
-    })
-    .catch((error) => {
-      setError(error);
-      setLoading(false);
-    });
+      });
+  }, []);
 
   return (
-    <div className="pt-[50px] px-[50px] ">
+    <div className="pt-[50px] px-[50px]">
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
@@ -66,9 +42,9 @@ const Movies = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {topRatedMovies.map((movie) => (
               <Link to={`/movie/${movie.id}`} key={movie.id}>
-                <div key={movie.id}>
+                <div>
                   <div
-                    className="bg-white p-4 rounded shadow h-[90vh]  object-contain"
+                    className="bg-white p-4 rounded shadow h-[90vh] object-contain"
                     id="back"
                     style={{
                       backgroundImage: movie.poster_path

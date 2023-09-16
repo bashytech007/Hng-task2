@@ -1,29 +1,27 @@
+
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import loading from "../assets/svg/loading.gif";
-import ratedLogo from "../assets/svg/18.svg";
+
 import { Star1, Back, Slash } from "iconsax-react";
 
 export default function MovieContent({ setActiveSection }) {
-   const apiKey = import.meta.env.VITE_APIKEY;
- 
   const { id } = useParams();
   const [movieData, setMovieData] = useState({});
   const [lazyLoad, setLazyLoad] = useState(true);
-   
   const [errorMsg, setErrorMsg] = useState("");
-  
- 
-
-  const URL = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`;
 
   useEffect(() => {
+    const apiKey = import.meta.env.VITE_APIKEY;
+    const URL = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`;
+
     const abortController = new AbortController();
+
     const fetchData = async () => {
       try {
         setLazyLoad(true);
-        let res = await axios.get(URL, {
+        const res = await axios.get(URL, {
           signal: abortController.signal,
         });
         setMovieData(res.data);
@@ -31,12 +29,13 @@ export default function MovieContent({ setActiveSection }) {
         setErrorMsg("");
       } catch (error) {
         if (error.name !== "CanceledError") {
-          if (error.response) {
-            if (
-              error.response.data.status_message ==
+          const errorResponse = error.response;
+          if (
+            errorResponse &&
+            errorResponse.data.status_message ===
               "The resource you requested could not be found."
-            )
-              setErrorMsg("Requested Movie Not Found");
+          ) {
+            setErrorMsg("Requested Movie Not Found");
           } else if (error.request) {
             console.error(
               "No response received. Check your network connection."
@@ -48,17 +47,17 @@ export default function MovieContent({ setActiveSection }) {
           }
         }
       }
-
-      () => {
-        abortController.abort();
-      };
     };
+
     fetchData();
-  }, []);
+
+    return () => {
+      abortController.abort();
+    };
+  }, [id]);
 
   useEffect(() => setActiveSection(false), []);
 
-  // Change page title when Component mounts and revert to default when component unmounts
   useEffect(() => {
     document.title = movieData.title || "Movie Box";
 
@@ -106,7 +105,6 @@ export default function MovieContent({ setActiveSection }) {
                 </h1>
                 <p>•</p>
                 <p data-testid="movie-release-date">
-                  {/* {movieData.release_date} */}
                   {new Date(movieData.release_date).toISOString()}
                 </p>
                 <p>•</p>
@@ -115,7 +113,6 @@ export default function MovieContent({ setActiveSection }) {
                   {movieData.status}
                 </p>
                 {movieData.adult && <Slash size="24" color="#BE123C" />}
-                {/* <img src={ratedLogo} width={"100%"} /> */}
               </div>
               <div className="flex items-center gap-2">
                 <Star1 size="32" color="#BE123C" variant="Bold" />
@@ -145,3 +142,4 @@ export default function MovieContent({ setActiveSection }) {
     </>
   );
 }
+
