@@ -22,15 +22,15 @@ export default function Search() {
     }
   return (
     
-    <div className="w-30">
-     <form class="flex items-center w-full" onSubmit={searchMovies}>
+    <div className="w-[10px]">
+     {/* <form class="flex items-center w-[60%]" onSubmit={searchMovies}>
         <label htmlFor="simple-search" class="sr-only">
           Search
         </label>
-        <div className="">
+       
           <input
             type="text"
-            className="bg-transparent border-2 border-[#D1D5DB] text-white text-md rounded-md block w-sm p-1.5 outline-none"
+            className="bg-transparent border-2 border-[#D1D5DB] text-white text-md rounded-md block w-full p-1.5 outline-none"
             placeholder="What do you want to watch?"
             disabled
             value={query}
@@ -51,8 +51,8 @@ export default function Search() {
               ></path>
             </svg>
           </div>
-        </div>
-      </form>
+       
+      </form> */}
       <div className="card-list w-screen absolute top-[780px] left-[-400px]  grid grid-cols 2 lg:grid-cols-4 place-content-center mx-auto">
         {movies
           .filter((movie) => movie.poster_path)

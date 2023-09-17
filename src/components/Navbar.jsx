@@ -19,13 +19,13 @@ const Navbar = () => {
     }
   };
   return (
-    <div className="w-full flex items-center justify-between px-[80px] pt-4">
+    <div className="w-full flex items-center justify-between px-[50px] pt-4">
       <div className="flex gap-5 items-center">
         <img src={TV} alt="tv-icon" />
         <span className="text-2xl font-bold text-white ">MovieBox</span>
       </div>
-      <div className="w-[32.8125rem] relative">
-        <form className="flex items-center w-full" onSubmit={searchMovies}>
+      <div className="w-[70px] relative">
+        {/* <form className="flex items-center w-full" onSubmit={searchMovies}>
           <label for="simple-search" class="sr-only">
             Search
           </label>
@@ -54,7 +54,7 @@ const Navbar = () => {
               </svg>
             </div>
           </div>
-        </form>
+        </form> */}
         <div className="card-list w-screen absolute top-[780px] left-[-400px]  grid grid-cols 2 lg:grid-cols-4 place-content-center mx-auto">
           {movies
             .filter((movie) => movie.poster_path)

@@ -1,14 +1,22 @@
 
 import React, { useEffect, useState } from "react";
 import Tomato from "../assets/svg/rottenTomato.svg";
-import Imbd from "../assets/svg/Imdb.svg";
+import Imdb from "../assets/svg/Imdb.svg";
 import { Link } from "react-router-dom";
-
+import Right from '../assets/svg/right.svg'
+import FavoriteLike from "../assets/images/Favorite.png";
+import UnfavoriteLike from "../assets/images/Unfavorite.png";
 const Movies = () => {
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [favourite, setFavourite] = useState(false);
 
+  function handleFavourite() {
+    setFavourite((prevFavourite) => !prevFavourite);
+  }
+
+  const like = favourite ? FavoriteLike : UnfavoriteLike;
   useEffect(() => {
     const apiKey = import.meta.env.VITE_APIKEY;
 
@@ -38,47 +46,64 @@ const Movies = () => {
         <p>Error: {error}</p>
       ) : (
         <div>
-          <h2 className="text-2xl pb-[50px] font-bold">Featured Movies</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="flex items-center justify-between pb-8">
+            <h1 className="text-4xl font-bold text-black">Featured Movie</h1>
+            <div className="flex items-center gap-3 cursor-pointer text-lg text-[#BE123C] font-medium">
+              See More
+              <span>
+                <img src={Right} alt="right-arrow" />
+              </span>
+            </div>
+          </div>
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {topRatedMovies.map((movie) => (
-              <Link to={`/movie/${movie.id}`} key={movie.id}>
-                <div>
-                  <div
-                    className="bg-white p-4 rounded shadow h-[90vh] object-contain"
-                    id="back"
-                    style={{
-                      backgroundImage: movie.poster_path
-                        ? `url(https://image.tmdb.org/t/p/w500${movie.poster_path})`
-                        : "none",
-                    }}
-                  ></div>
-                  <div className="mt-4">
-                    <p className="text-lg text">{movie.logo_path}</p>
-                    <h3 className="text-lg text-black font-semibold">
-                      {movie.title}
-                    </h3>
-                  </div>
-                  <div className="flex items-center gap-6 pb-4 pt-4">
-                    <div className="flex">
-                      <img src={Imbd} alt="" />
-                      <p className="text-black text-sm pl-2 ">
-                        {movie.popularity}
-                      </p>
-                    </div>
-
-                    <div className="flex items-center">
-                      <img src={Tomato} alt="" />
-                      <p className="text-black text-sm pl-2 ">97%</p>
-                    </div>
-                  </div>
-
-                  <div className="pb-5">
-                    <p className="md:text-sm text-xs opacity-[0.4] font-bold">
-                      {movie.release_date}
+              <div key={movie.id} className="h-full relative">
+                <Link to={`/movies/${movie.id}`}>
+                  <img
+                    src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
+                    loading="lazy"
+                    alt=""
+                    className="w-full relative"
+                    data-testid="movie-poster"
+                  />
+                </Link>
+                <img
+                  onClick={handleFavourite}
+                  src={like}
+                  alt=""
+                  className="absolute right-4 top-4 cursor-pointer"
+                />
+                <div className="mt-4">
+                  <p className="text-lg text">{movie.logo_path}</p>
+                  <h3
+                    className="text-lg text-black font-semibold"
+                    data-testid="movie-title"
+                  >
+                    {movie.title}
+                  </h3>
+                </div>
+                <div className="flex items-center gap-6 pb-4 pt-4">
+                  <div className="flex">
+                    <img src={Imdb} alt="" />
+                    <p className="text-black text-sm pl-2 ">
+                      {movie.popularity}
                     </p>
                   </div>
+
+                  <div className="flex items-center">
+                    <img src={Tomato} alt="" />
+                    <p className="text-black text-sm pl-2 ">97%</p>
+                  </div>
                 </div>
-              </Link>
+                <div className="pb-5">
+                  <p
+                    className="md:text-sm text-xs opacity-[0.4] font-bold"
+                    data-testid="movie-release-date"
+                  >
+                    {movie.release_date}
+                  </p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
