@@ -74,7 +74,7 @@ const Movies = () => {
 
                   <div className="pb-5">
                     <p className="md:text-sm text-xs opacity-[0.4] font-bold">
-                      Release Date (UTC): {movie.release_date}
+                      {movie.release_date}
                     </p>
                   </div>
                 </div>
