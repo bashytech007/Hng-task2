@@ -62,17 +62,17 @@ export default function MovieCard({
       <Link onClick={() => setActiveSection(false)} to={to}>
         <div>
           <img
-            data-testid:movie-poster
+            data-testid="movie-poster"
             className="hover:brightness-75 transition ease-in-out duration-150  movie-poster w-[100%] lg:h-[450px] h-[300px] object-cover object-top"
             src={`https://image.tmdb.org/t/p/w500/${imgSrc}`}
             alt={`${movieTitle} poster image`}
           />
         </div>
         <p className="font-medium text-[16px] text-[#858b95]">
-          Release date:{" "}
-          <span data-testid:movie-release-date>{releaseDate}</span>
+          Release date:
+          <span data-testid="movie-release-date">{releaseDate}</span>
         </p>
-        <h2 data-testid:movie-title className="font-bold text-lg">
+        <h2 data-testid="movie-title" className="font-bold text-lg">
           {movieTitle}
         </h2>
         <div className="flex justify-between w-full">
