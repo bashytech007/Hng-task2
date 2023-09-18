@@ -12,8 +12,8 @@ export default function MovieContent({ setActiveSection }) {
   const [lazyLoad, setLazyLoad] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
 
+  const apiKey = import.meta.env.VITE_APIKEY;
   useEffect(() => {
-    const apiKey = import.meta.env.VITE_APIKEY;
     const URL = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`;
 
     const abortController = new AbortController();
@@ -133,7 +133,7 @@ export default function MovieContent({ setActiveSection }) {
                 className="cursor-pointer px-2 bg-[#BE123C] inline-block text-white rounded-lg mr-2"
                 key={i}
               >
-                {el.name}{" "}
+                {el.name}
               </span>
             ))}
           </p>

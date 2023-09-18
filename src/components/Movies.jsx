@@ -11,14 +11,14 @@ const Movies = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [favourite, setFavourite] = useState(false);
-
+const apiKey = import.meta.env.VITE_APIKEY;
   function handleFavourite() {
     setFavourite((prevFavourite) => !prevFavourite);
   }
 
   const like = favourite ? FavoriteLike : UnfavoriteLike;
   useEffect(() => {
-    const apiKey = import.meta.env.VITE_APIKEY;
+    
 
     const apiUrl = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&page=1`;
 
@@ -58,7 +58,7 @@ const Movies = () => {
           <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {topRatedMovies.map((movie) => (
               <div key={movie.id} className="h-full relative">
-                <Link to={`/movies/${movie.id}`}>
+                <Link to={`/movie/${movie.id}`}>
                   <img
                     src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
                     loading="lazy"
